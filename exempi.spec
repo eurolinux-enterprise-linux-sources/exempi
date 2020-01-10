@@ -1,11 +1,17 @@
 Summary:	Library for easy parsing of XMP metadata
 Name:		exempi
 Version:	2.2.0
-Release:	8%{?dist}
+Release:	9%{?dist}
 License:	BSD
 Group:		System Environment/Libraries
 URL:		http://libopenraw.freedesktop.org/wiki/Exempi
 Source0:	http://libopenraw.freedesktop.org/download/%{name}-%{version}.tar.bz2
+Patch0:		CVE-2017-18233.patch
+Patch1:		CVE-2017-18234.patch
+Patch2:		CVE-2017-18236.patch
+Patch3:		CVE-2017-18238.patch
+Patch4:		CVE-2018-7730.patch
+
 BuildRequires:	boost-devel expat-devel zlib-devel pkgconfig
 Provides:	bundled(md5-polstra)
 
@@ -26,6 +32,11 @@ developing with exempi.
 
 %prep
 %setup -q
+%patch0 -p1
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
+%patch4 -p1
 
 %build
 
@@ -62,6 +73,18 @@ rm -rf %{buildroot}%{_libdir}/*.a
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Wed Dec 05 2018 Nikola Forró <nforro@redhat.com> - 2.2.0-9
+- Fix CVE-2017-18233
+  resolves: #1574865
+- Fix CVE-2017-18234
+  resolves: #1656011
+- Fix CVE-2017-18236
+  resolves: #1574905
+- Fix CVE-2017-18238
+  resolves: #1572270
+- Fix CVE-2018-7730
+  resolves: #1572631
+
 * Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 2.2.0-8
 - Mass rebuild 2014-01-24
 
